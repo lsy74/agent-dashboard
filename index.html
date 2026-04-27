@@ -9,10 +9,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a1a2e;min-height:100vh}
 .header{background:#1F3864;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.header-title{color:#fff;font-size:20px;font-weight:600;letter-spacing:.3px}
+.header-title{color:#fff;font-size:20px;font-weight:600}
 .header-sub{color:#C9A84C;font-size:12px;margin-top:3px}
 .week-tabs{display:flex;gap:7px;flex-wrap:wrap}
-.wtab{font-size:12px;font-weight:500;padding:6px 16px;border-radius:20px;border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);background:transparent;cursor:pointer;transition:all .2s}
+.wtab{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);background:transparent;cursor:pointer;transition:all .2s}
 .wtab:hover{border-color:rgba(255,255,255,.6);color:#fff}
 .wtab.on{background:#fff;color:#1F3864;border-color:#fff}
 .main{max-width:1200px;margin:0 auto;padding:24px 20px}
@@ -28,12 +28,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .charts-bot{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 .card{background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #e8eaf0}
 .card-title{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px}
-.card-sub{font-size:11px;color:#aaa;margin-bottom:14px}
-.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;font-size:12px;color:#666}
+.card-sub{font-size:11px;color:#aaa;margin-bottom:12px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px;font-size:12px;color:#666}
 .ld{display:flex;align-items:center;gap:5px}
 .ls{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-.agent-table{width:100%;border-collapse:collapse;font-size:13px}
-.agent-table th{text-align:left;font-weight:600;font-size:11px;color:#888;padding:8px 10px;border-bottom:2px solid #f0f0f0;white-space:nowrap}
+.agent-table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+.agent-table th{text-align:left;font-weight:600;font-size:11px;color:#888;padding:8px 10px;border-bottom:2px solid #f0f0f0}
 .agent-table td{padding:9px 10px;border-bottom:1px solid #f5f5f5;color:#1a1a2e}
 .agent-table tr:last-child td{border-bottom:none;font-weight:700;background:#fafafa}
 .agent-table tr:hover td{background:#f8f9ff}
@@ -42,7 +42,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .pill-r{background:#ffebee;color:#c62828}
 .bar-wrap{display:flex;align-items:center;gap:6px}
 .bar-bg{flex:1;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden;min-width:40px}
-.bar-fill{height:100%;border-radius:3px;transition:width .4s ease}
+.bar-fill{height:100%;border-radius:3px;transition:width .4s}
 .footer{text-align:center;padding:20px;font-size:12px;color:#bbb}
 @media(max-width:768px){
   .kpi-row{grid-template-columns:repeat(2,1fr)}
@@ -54,37 +54,35 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 </style>
 </head>
 <body>
-
 <div class="header">
   <div>
     <div class="header-title">代理商仪表板 / Agent Dashboard</div>
-    <div class="header-sub" id="hdr-sub">Mar 23 – Apr 19, 2026 · 4 weeks · 点击标签切换周次</div>
+    <div class="header-sub" id="hdr-sub">Mar 23 – Apr 26, 2026 · 5 weeks</div>
   </div>
   <div class="week-tabs">
     <button class="wtab" onclick="setW(1,this)">W1 Mar23</button>
     <button class="wtab" onclick="setW(2,this)">W2 Mar30</button>
     <button class="wtab" onclick="setW(3,this)">W3 Apr06</button>
-    <button class="wtab on" onclick="setW(4,this)">W4 Apr13</button>
+    <button class="wtab" onclick="setW(4,this)">W4 Apr13</button>
+    <button class="wtab on" onclick="setW(5,this)">W5 Apr20</button>
     <button class="wtab" onclick="setW(0,this)">全部</button>
   </div>
 </div>
-
 <div class="main">
   <div class="kpi-row">
     <div class="kpi"><div class="kpi-l">总销售额</div><div class="kpi-v" id="k-sales" style="color:#185FA5">—</div><div class="kpi-d" id="k-sales-d">—</div></div>
-    <div class="kpi"><div class="kpi-l">总中奖</div><div class="kpi-v" id="k-win" style="color:#c62828">—</div><div class="kpi-d" id="k-win-d">—</div></div>
+    <div class="kpi"><div class="kpi-l">总中奖</div><div class="kpi-v" id="k-win">—</div><div class="kpi-d" id="k-win-d">—</div></div>
     <div class="kpi"><div class="kpi-l">净利润</div><div class="kpi-v" id="k-profit">—</div><div class="kpi-d" id="k-profit-d">—</div></div>
-    <div class="kpi"><div class="kpi-l">总佣金</div><div class="kpi-v" id="k-comm" style="color:#2e7d32">—</div><div class="kpi-d" id="k-comm-d">已赚取</div></div>
+    <div class="kpi"><div class="kpi-l">总佣金</div><div class="kpi-v" id="k-comm" style="color:#2e7d32">—</div><div class="kpi-d">已赚取</div></div>
     <div class="kpi kpi-star"><div class="kpi-l">⭐ 赚取佣金 + 利润（实际总盈亏）</div><div class="kpi-v" id="k-pnl">—</div><div class="kpi-d" id="k-pnl-d">—</div></div>
   </div>
-
   <div class="charts-top">
     <div class="card">
       <div class="card-title">⭐ 赚取佣金+利润 趋势</div>
-      <div class="card-sub">实际盈亏走势 W1 → W4</div>
+      <div class="card-sub">实际盈亏走势 W1 → W5</div>
       <div class="legend">
         <span class="ld"><span class="ls" style="background:#534AB7;border-radius:50%"></span>实际 P&L</span>
-        <span class="ld"><span class="ls" style="background:#aaa;border-radius:50%"></span>净利润</span>
+        <span class="ld"><span class="ls" style="background:#bbb;border-radius:50%"></span>净利润</span>
       </div>
       <div style="position:relative;height:200px"><canvas id="c-trend"></canvas></div>
     </div>
@@ -98,7 +96,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <div style="position:relative;height:200px"><canvas id="c-sv"></canvas></div>
     </div>
   </div>
-
   <div class="charts-mid">
     <div class="card">
       <div class="card-title">各代理详情</div>
@@ -108,41 +105,40 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
           <th style="width:22%">代理</th>
           <th style="width:16%;text-align:right">销售</th>
           <th style="width:16%;text-align:right">利润</th>
-          <th style="width:20%;text-align:right">⭐ 赚取+利润</th>
-          <th style="width:26%">销售占比</th>
+          <th style="width:22%;text-align:right">⭐ 赚取+利润</th>
+          <th style="width:24%">销售占比</th>
         </tr></thead>
         <tbody id="agent-tbody"></tbody>
       </table>
     </div>
     <div class="card">
       <div class="card-title">佣金占比</div>
-      <div class="card-sub" id="sub-pie">各代理佣金分布</div>
-      <div style="position:relative;height:180px"><canvas id="c-pie"></canvas></div>
-      <div class="legend" id="pie-leg" style="margin-top:12px;justify-content:center"></div>
+      <div class="card-sub" id="sub-pie">各代理佣金</div>
+      <div style="position:relative;height:170px"><canvas id="c-pie"></canvas></div>
+      <div class="legend" id="pie-leg" style="margin-top:10px;justify-content:center"></div>
     </div>
   </div>
-
   <div class="charts-bot">
     <div class="card">
       <div class="card-title">各代理 P&L 周对比</div>
-      <div class="card-sub">赚取佣金+利润 W1 / W2 / W3 / W4</div>
+      <div class="card-sub">赚取佣金+利润 W1–W5</div>
       <div class="legend">
         <span class="ld"><span class="ls" style="background:#2e7d32"></span>W1</span>
         <span class="ld"><span class="ls" style="background:#185FA5"></span>W2</span>
         <span class="ld"><span class="ls" style="background:#c62828"></span>W3</span>
         <span class="ld"><span class="ls" style="background:#534AB7"></span>W4</span>
+        <span class="ld"><span class="ls" style="background:#0F6E56"></span>W5</span>
       </div>
       <div style="position:relative;height:200px"><canvas id="c-agent-pnl"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">各周总销售趋势</div>
-      <div class="card-sub">W1 → W4 销售额对比</div>
+      <div class="card-sub">W1 → W5 销售额</div>
       <div style="position:relative;height:200px"><canvas id="c-sales"></canvas></div>
     </div>
   </div>
 </div>
-
-<div class="footer">代理商周报系统 · 数据截至 Apr 19, 2026 · 每周更新</div>
+<div class="footer">代理商周报系统 · 数据截至 Apr 26, 2026 · 每周更新</div>
 
 <script>
 const W={
@@ -150,24 +146,12 @@ const W={
   2:{label:"W2 · Mar 30–Apr 05",date:"Mar 30–Apr 05, 2026",agents:[{n:"Fei nyien",s:654.6,p:-392.33,c:-327.63,comm:105.07},{n:"Hafiz",s:82.2,p:68.32,c:74.71,comm:13.44},{n:"Vincent",s:10.5,p:-24.14,c:-23.92,comm:1.55}],sales:747.3,win:971,profit:-348.15,comm:120.06,pnl:-276.84,agentCount:"3 位代理",winNote:"赔率偏高",profitNote:"本周亏损",pnlNote:"实际总亏损"},
   3:{label:"W3 · Apr 06–12",date:"Apr 06–12, 2026",agents:[{n:"Fei nyien",s:751.5,p:602.29,c:666.84,comm:110.54},{n:"Hafiz",s:64.6,p:53.41,c:59.11,comm:10.92},{n:"Vincent",s:322.61,p:55.78,c:57.74,comm:49.49},{n:"Bryan",s:20,p:16.6,c:16.6,comm:3.3}],sales:1158.71,win:248,profit:728.07,comm:174.24,pnl:800.28,agentCount:"4 位代理",winNote:"中奖较少",profitNote:"全员盈利",pnlNote:"实际总盈亏"},
   4:{label:"W4 · Apr 13–19",date:"Apr 13–19, 2026",agents:[{n:"Fei nyien",s:640.4,p:-1114.70,c:-1054.70,comm:93.58},{n:"Hafiz",s:86.5,p:71.75,c:79.12,comm:14.34},{n:"Vincent",s:189.08,p:157.42,c:157.42,comm:30.59},{n:"Bryan",s:3.5,p:2.98,c:72.98,comm:0.49}],sales:919.48,win:1657.5,profit:-882.55,comm:139.00,pnl:-745.18,agentCount:"4 位代理",winNote:"大中奖",profitNote:"本周亏损",pnlNote:"实际总亏损"},
-  0:{label:"全部 4 周合计",date:"Mar 23 – Apr 19, 2026",agents:[{n:"Fei nyien",s:1780.2,p:-412.96,c:-566.0,comm:351.87},{n:"Hafiz",s:301.9,p:219.65,c:244.56,comm:49.09},{n:"Vincent",s:522.19,p:189.06,c:191.24,comm:81.63},{n:"Bryan",s:27,p:22.56,c:162.16,comm:4.28}],sales:2377.79,win:2257.5,profit:-506.67,comm:466.37,pnl:-38.76,agentCount:"累计所有代理",winNote:"4周合计",profitNote:"累计净亏",pnlNote:"累计实际盈亏"}
+  5:{label:"W5 · Apr 20–26",date:"Apr 20–26, 2026",agents:[{n:"Fei nyien",s:714.9,p:180.27,c:257.27,comm:91.39},{n:"Hafiz",s:57.4,p:-36.31,c:-30.90,comm:9.41},{n:"Vincent",s:236.1,p:54.29,c:54.29,comm:37.29},{n:"Bryan",s:10,p:8.50,c:55.40,comm:1.40}],sales:1018.40,win:665.5,profit:206.76,comm:139.49,pnl:336.07,agentCount:"4 位代理",winNote:"中奖适中",profitNote:"本周盈利",pnlNote:"实际总盈亏"},
+  0:{label:"全部 5 周合计",date:"Mar 23 – Apr 26, 2026",agents:[{n:"Fei nyien",s:2495.1,p:-232.69,c:-308.59,comm:443.26},{n:"Hafiz",s:359.3,p:183.34,c:213.66,comm:58.5},{n:"Vincent",s:758.29,p:243.35,c:245.53,comm:118.92},{n:"Bryan",s:37,p:31.06,c:217.56,comm:5.68}],sales:3395.69,win:2923,profit:303.09,comm:605.86,pnl:297.31,agentCount:"累计所有代理",winNote:"5周合计",profitNote:"累计盈利",pnlNote:"累计实际盈亏"}
 };
-
-const TREND={
-  labels:["W1\nMar23","W2\nMar30","W3\nApr06","W4\nApr13"],
-  pnl:[182.56,-276.84,800.28,-745.18],
-  profit:[121.96,-348.15,728.07,-882.55]
-};
-
-const AGENT_PNL={
-  labels:["Fei nyien","Hafiz","Vincent","Bryan"],
-  w1:[149.43,33.13,0,0],
-  w2:[-327.63,74.71,-23.92,0],
-  w3:[666.84,59.11,57.74,16.60],
-  w4:[-1054.70,79.12,157.42,72.98]
-};
-
-const SALES_TREND={labels:["W1","W2","W3","W4"],data:[352.3,747.3,1158.71,919.48]};
+const TREND={labels:["W1","W2","W3","W4","W5"],pnl:[182.56,-276.84,800.28,-745.18,336.07],profit:[121.96,-348.15,728.07,-882.55,206.76]};
+const AGENT_PNL={labels:["Fei nyien","Hafiz","Vincent","Bryan"],w1:[149.43,33.13,0,0],w2:[-327.63,74.71,-23.92,0],w3:[666.84,59.11,57.74,16.60],w4:[-1054.70,79.12,157.42,72.98],w5:[257.27,-30.90,54.29,55.40]};
+const SALES={labels:["W1","W2","W3","W4","W5"],data:[352.3,747.3,1158.71,919.48,1018.40]};
 const PIE_C=["#185FA5","#2e7d32","#BA7517","#c62828"];
 const fmt=v=>"RM "+(v<0?"-":"")+Math.abs(v).toLocaleString('en',{minimumFractionDigits:0,maximumFractionDigits:0});
 
@@ -177,11 +161,10 @@ function destroyAll(){Object.values(charts).forEach(c=>c&&c.destroy());charts={}
 function buildAll(w){
   destroyAll();
   const d=W[w];
-
-  // KPIs
   document.getElementById("k-sales").textContent=fmt(d.sales);
   document.getElementById("k-sales-d").textContent=d.agentCount;
   document.getElementById("k-win").textContent=fmt(d.win);
+  document.getElementById("k-win").style.color=d.win>800?"#c62828":"#2e7d32";
   document.getElementById("k-win-d").textContent=d.winNote;
   const kp=document.getElementById("k-profit");
   kp.textContent=fmt(d.profit); kp.style.color=d.profit<0?"#c62828":"#2e7d32";
@@ -193,94 +176,57 @@ function buildAll(w){
   document.getElementById("sub-sv").textContent=d.label+" 各代理";
   document.getElementById("sub-agents").textContent=d.label+" · "+d.date;
   document.getElementById("sub-pie").textContent=d.label+" 佣金分布";
-  document.getElementById("hdr-sub").textContent="Mar 23 – Apr 19, 2026 · 4 weeks · 当前："+d.label;
+  document.getElementById("hdr-sub").textContent="Mar 23 – Apr 26, 2026 · 5 weeks · 当前："+d.label;
 
-  // Chart 1: P&L trend (always shows all 4 weeks)
-  charts.trend=new Chart(document.getElementById("c-trend"),{type:"line",
-    data:{labels:TREND.labels,datasets:[
-      {label:"实际 P&L",data:TREND.pnl,borderColor:"#534AB7",backgroundColor:"rgba(83,74,183,.08)",pointBackgroundColor:TREND.pnl.map(v=>v>=0?"#534AB7":"#c62828"),pointRadius:6,fill:true,tension:.35},
-      {label:"净利润",data:TREND.profit,borderColor:"#bbb",pointBackgroundColor:"#bbb",pointRadius:4,fill:false,tension:.35,borderDash:[5,3]}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)}}},
-      scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:11}}},
-              y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>(v<0?"-RM":""+"RM ")+Math.abs(v)}}}}
-  });
+  charts.trend=new Chart(document.getElementById("c-trend"),{type:"line",data:{labels:TREND.labels,datasets:[
+    {label:"实际 P&L",data:TREND.pnl,borderColor:"#534AB7",backgroundColor:"rgba(83,74,183,.07)",pointBackgroundColor:TREND.pnl.map(v=>v>=0?"#534AB7":"#c62828"),pointRadius:6,fill:true,tension:.35},
+    {label:"净利润",data:TREND.profit,borderColor:"#ccc",pointBackgroundColor:"#ccc",pointRadius:4,fill:false,tension:.35,borderDash:[5,3]}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)}}},
+    scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:11}}},y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>"RM "+v}}}}});
 
-  // Chart 2: Sales vs Win
   const sv_labels=w===0?["Fei nyien","Hafiz","Vincent","Bryan"]:d.agents.map(a=>a.n);
-  const sv_sales=w===0?[1780.2,301.9,522.19,27]:d.agents.map(a=>a.s);
-  const sv_win=w===0?[938+143+1657.5,0+31.5+0,33+0+215+0,0+0+0+0]:
-    (w===1?[143,31.5]:w===2?[938,0,33]:w===3?[33,0,215,0]:[1657.5,0,0,0]);
-  charts.sv=new Chart(document.getElementById("c-sv"),{type:"bar",
-    data:{labels:sv_labels,datasets:[
-      {label:"销售",data:sv_sales,backgroundColor:"#185FA5",borderRadius:5,barPercentage:.6},
-      {label:"中奖",data:sv_win,backgroundColor:"#c62828",borderRadius:5,barPercentage:.6}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>"RM "+c.raw.toFixed(0)}}},
-      scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:11}}},
-              y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>"RM "+v}}}}
-  });
+  const sv_sales=w===0?[2495.1,359.3,758.29,37]:d.agents.map(a=>a.s);
+  const sv_win=w===0?[438.5+938+143+1657.5,84+0+31.5+0,143+33+215+0,0]:(w===1?[143,31.5]:w===2?[938,0,33]:w===3?[33,0,215,0]:w===4?[1657.5,0,0,0]:[438.5,84,143,0]);
+  charts.sv=new Chart(document.getElementById("c-sv"),{type:"bar",data:{labels:sv_labels,datasets:[
+    {label:"销售",data:sv_sales,backgroundColor:"#185FA5",borderRadius:5,barPercentage:.6},
+    {label:"中奖",data:sv_win,backgroundColor:"#c62828",borderRadius:5,barPercentage:.6}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>"RM "+c.raw.toFixed(0)}}},
+    scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:10}}},y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>"RM "+v}}}}});
 
-  // Table
   const maxS=Math.max(...d.agents.map(a=>a.s),1);
-  document.getElementById("agent-tbody").innerHTML=
-    d.agents.map(a=>{
-      const pos=a.c>=0;
-      return `<tr>
-        <td style="font-weight:600">${a.n}</td>
-        <td style="text-align:right;color:#555">RM ${a.s.toFixed(0)}</td>
-        <td style="text-align:right"><span class="pill ${a.p>=0?'pill-g':'pill-r'}">${a.p>=0?'+':''}${a.p.toFixed(0)}</span></td>
-        <td style="text-align:right;font-weight:700;color:${pos?"#2e7d32":"#c62828"}">RM ${a.c>=0?'':'-'}${Math.abs(a.c).toFixed(0)}</td>
-        <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${Math.round(a.s/maxS*100)}%;background:${pos?"#185FA5":"#c62828"}"></div></div><span style="font-size:10px;color:#bbb;min-width:28px">${Math.round(a.s/maxS*100)}%</span></div></td>
-      </tr>`;
-    }).join("")+
-    `<tr><td>总额</td>
-      <td style="text-align:right">RM ${d.sales.toFixed(0)}</td>
-      <td style="text-align:right"><span class="pill ${d.profit>=0?'pill-g':'pill-r'}">${d.profit>=0?'+':''}${d.profit.toFixed(0)}</span></td>
-      <td style="text-align:right;color:${d.pnl>=0?"#2e7d32":"#c62828"}">RM ${d.pnl>=0?'':'-'}${Math.abs(d.pnl).toFixed(0)}</td>
-      <td></td></tr>`;
+  document.getElementById("agent-tbody").innerHTML=d.agents.map(a=>{
+    const pos=a.c>=0;
+    return `<tr><td style="font-weight:600">${a.n}</td>
+      <td style="text-align:right;color:#555">RM ${a.s.toFixed(0)}</td>
+      <td style="text-align:right"><span class="pill ${a.p>=0?'pill-g':'pill-r'}">${a.p>=0?'+':''}${a.p.toFixed(0)}</span></td>
+      <td style="text-align:right;font-weight:700;color:${pos?"#2e7d32":"#c62828"}">RM ${a.c>=0?'':'-'}${Math.abs(a.c).toFixed(0)}</td>
+      <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${Math.round(a.s/maxS*100)}%;background:${pos?"#185FA5":"#c62828"}"></div></div><span style="font-size:10px;color:#bbb;min-width:28px">${Math.round(a.s/maxS*100)}%</span></div></td></tr>`;
+  }).join("")+`<tr><td>总额</td><td style="text-align:right">RM ${d.sales.toFixed(0)}</td>
+    <td style="text-align:right"><span class="pill ${d.profit>=0?'pill-g':'pill-r'}">${d.profit>=0?'+':''}${d.profit.toFixed(0)}</span></td>
+    <td style="text-align:right;color:${d.pnl>=0?"#2e7d32":"#c62828"}">RM ${d.pnl>=0?'':'-'}${Math.abs(d.pnl).toFixed(0)}</td><td></td></tr>`;
 
-  // Pie
-  const comms=d.agents.map(a=>a.comm);
-  const pie_labels=d.agents.map(a=>a.n);
-  const total=comms.reduce((a,b)=>a+b,0);
-  charts.pie=new Chart(document.getElementById("c-pie"),{type:"doughnut",
-    data:{labels:pie_labels,datasets:[{data:comms,backgroundColor:PIE_C,borderWidth:3,borderColor:"#fff"}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:"60%",
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: RM ${c.raw.toFixed(2)} (${(c.raw/total*100).toFixed(0)}%)`}}}}
-  });
+  const comms=d.agents.map(a=>a.comm), pie_labels=d.agents.map(a=>a.n), total=comms.reduce((a,b)=>a+b,0);
+  charts.pie=new Chart(document.getElementById("c-pie"),{type:"doughnut",data:{labels:pie_labels,datasets:[{data:comms,backgroundColor:PIE_C,borderWidth:3,borderColor:"#fff"}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:"60%",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: RM ${c.raw.toFixed(2)} (${(c.raw/total*100).toFixed(0)}%)`}}}}});
   document.getElementById("pie-leg").innerHTML=pie_labels.map((l,i)=>`<span class="ld"><span class="ls" style="background:${PIE_C[i]}"></span>${l} ${(comms[i]/total*100).toFixed(0)}%</span>`).join("");
 
-  // Agent P&L grouped bar (always all weeks)
-  charts.agentPnl=new Chart(document.getElementById("c-agent-pnl"),{type:"bar",
-    data:{labels:AGENT_PNL.labels,datasets:[
-      {label:"W1",data:AGENT_PNL.w1,backgroundColor:"#2e7d32",borderRadius:4,barPercentage:.7},
-      {label:"W2",data:AGENT_PNL.w2,backgroundColor:"#185FA5",borderRadius:4,barPercentage:.7},
-      {label:"W3",data:AGENT_PNL.w3,backgroundColor:"#c62828",borderRadius:4,barPercentage:.7},
-      {label:"W4",data:AGENT_PNL.w4,backgroundColor:"#534AB7",borderRadius:4,barPercentage:.7},
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.raw)}}},
-      scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:11}}},
-              y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>(v<0?"-RM":"RM ")+Math.abs(v)}}}}
-  });
+  charts.agentPnl=new Chart(document.getElementById("c-agent-pnl"),{type:"bar",data:{labels:AGENT_PNL.labels,datasets:[
+    {label:"W1",data:AGENT_PNL.w1,backgroundColor:"#2e7d32",borderRadius:4,barPercentage:.7},
+    {label:"W2",data:AGENT_PNL.w2,backgroundColor:"#185FA5",borderRadius:4,barPercentage:.7},
+    {label:"W3",data:AGENT_PNL.w3,backgroundColor:"#c62828",borderRadius:4,barPercentage:.7},
+    {label:"W4",data:AGENT_PNL.w4,backgroundColor:"#534AB7",borderRadius:4,barPercentage:.7},
+    {label:"W5",data:AGENT_PNL.w5,backgroundColor:"#0F6E56",borderRadius:4,barPercentage:.7},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.raw)}}},
+    scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:11}}},y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>(v<0?"-RM":"RM ")+Math.abs(v)}}}}});
 
-  // Sales trend bar
-  charts.sales=new Chart(document.getElementById("c-sales"),{type:"bar",
-    data:{labels:SALES_TREND.labels,datasets:[{label:"销售额",data:SALES_TREND.data,
-      backgroundColor:SALES_TREND.data.map((_,i)=>i===w-1?"#185FA5":"rgba(24,95,165,.3)"),borderRadius:6}]},
+  charts.sales=new Chart(document.getElementById("c-sales"),{type:"bar",data:{labels:SALES.labels,datasets:[{label:"销售额",data:SALES.data,
+    backgroundColor:SALES.data.map((_,i)=>i===w-1?"#185FA5":"rgba(24,95,165,.25)"),borderRadius:6}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>"RM "+c.raw.toFixed(0)}}},
-      scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:12}}},
-              y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>"RM "+v}}}}
-  });
+      scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:12}}},y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>"RM "+v}}}}});
 }
 
-function setW(w,el){
-  document.querySelectorAll(".wtab").forEach(b=>b.classList.remove("on"));
-  el.classList.add("on");
-  buildAll(w);
-}
-
-buildAll(4);
+function setW(w,el){document.querySelectorAll(".wtab").forEach(b=>b.classList.remove("on"));el.classList.add("on");buildAll(w);}
+buildAll(5);
 </script>
 </body>
 </html>
