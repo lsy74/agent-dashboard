@@ -11,8 +11,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .header{background:#1F3864;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .header-title{color:#fff;font-size:20px;font-weight:600}
 .header-sub{color:#C9A84C;font-size:12px;margin-top:3px}
-.week-tabs{display:flex;gap:7px;flex-wrap:wrap}
-.wtab{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);background:transparent;cursor:pointer;transition:all .2s}
+.week-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.wtab{font-size:12px;font-weight:500;padding:5px 13px;border-radius:20px;border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);background:transparent;cursor:pointer;transition:all .2s}
 .wtab:hover{border-color:rgba(255,255,255,.6);color:#fff}
 .wtab.on{background:#fff;color:#1F3864;border-color:#fff}
 .main{max-width:1200px;margin:0 auto;padding:24px 20px}
@@ -57,14 +57,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 <div class="header">
   <div>
     <div class="header-title">代理商仪表板 / Agent Dashboard</div>
-    <div class="header-sub" id="hdr-sub">Mar 23 – Apr 26, 2026 · 5 weeks</div>
+    <div class="header-sub" id="hdr-sub">Mar 23 – May 03, 2026 · 6 weeks</div>
   </div>
   <div class="week-tabs">
     <button class="wtab" onclick="setW(1,this)">W1 Mar23</button>
     <button class="wtab" onclick="setW(2,this)">W2 Mar30</button>
     <button class="wtab" onclick="setW(3,this)">W3 Apr06</button>
     <button class="wtab" onclick="setW(4,this)">W4 Apr13</button>
-    <button class="wtab on" onclick="setW(5,this)">W5 Apr20</button>
+    <button class="wtab" onclick="setW(5,this)">W5 Apr20</button>
+    <button class="wtab on" onclick="setW(6,this)">W6 Apr27</button>
     <button class="wtab" onclick="setW(0,this)">全部</button>
   </div>
 </div>
@@ -79,7 +80,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <div class="charts-top">
     <div class="card">
       <div class="card-title">⭐ 赚取佣金+利润 趋势</div>
-      <div class="card-sub">实际盈亏走势 W1 → W5</div>
+      <div class="card-sub">实际盈亏走势 W1 → W6</div>
       <div class="legend">
         <span class="ld"><span class="ls" style="background:#534AB7;border-radius:50%"></span>实际 P&L</span>
         <span class="ld"><span class="ls" style="background:#bbb;border-radius:50%"></span>净利润</span>
@@ -121,62 +122,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <div class="charts-bot">
     <div class="card">
       <div class="card-title">各代理 P&L 周对比</div>
-      <div class="card-sub">赚取佣金+利润 W1–W5</div>
+      <div class="card-sub">赚取佣金+利润 W1–W6</div>
       <div class="legend">
         <span class="ld"><span class="ls" style="background:#2e7d32"></span>W1</span>
         <span class="ld"><span class="ls" style="background:#185FA5"></span>W2</span>
         <span class="ld"><span class="ls" style="background:#c62828"></span>W3</span>
         <span class="ld"><span class="ls" style="background:#534AB7"></span>W4</span>
         <span class="ld"><span class="ls" style="background:#0F6E56"></span>W5</span>
+        <span class="ld"><span class="ls" style="background:#BA7517"></span>W6</span>
       </div>
       <div style="position:relative;height:200px"><canvas id="c-agent-pnl"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">各周总销售趋势</div>
-      <div class="card-sub">W1 → W5 销售额</div>
+      <div class="card-sub">W1 → W6 销售额</div>
       <div style="position:relative;height:200px"><canvas id="c-sales"></canvas></div>
     </div>
   </div>
 </div>
-<div class="footer">代理商周报系统 · 数据截至 Apr 26, 2026 · 每周更新</div>
-
+<div class="footer">代理商周报系统 · 数据截至 May 03, 2026 · 每周更新</div>
 <script>
 const W={
-  1:{label:"W1 · Mar 23–29",date:"Mar 23–29, 2026",agents:[{n:"Fei nyien",s:283.7,p:95.78,c:149.43,comm:42.68},{n:"Hafiz",s:68.6,p:26.18,c:33.13,comm:10.39}],sales:352.3,win:174.5,profit:121.96,comm:53.07,pnl:182.56,agentCount:"2 位代理",winNote:"中奖较少",profitNote:"本周盈利",pnlNote:"实际总盈亏"},
-  2:{label:"W2 · Mar 30–Apr 05",date:"Mar 30–Apr 05, 2026",agents:[{n:"Fei nyien",s:654.6,p:-392.33,c:-327.63,comm:105.07},{n:"Hafiz",s:82.2,p:68.32,c:74.71,comm:13.44},{n:"Vincent",s:10.5,p:-24.14,c:-23.92,comm:1.55}],sales:747.3,win:971,profit:-348.15,comm:120.06,pnl:-276.84,agentCount:"3 位代理",winNote:"赔率偏高",profitNote:"本周亏损",pnlNote:"实际总亏损"},
-  3:{label:"W3 · Apr 06–12",date:"Apr 06–12, 2026",agents:[{n:"Fei nyien",s:751.5,p:602.29,c:666.84,comm:110.54},{n:"Hafiz",s:64.6,p:53.41,c:59.11,comm:10.92},{n:"Vincent",s:322.61,p:55.78,c:57.74,comm:49.49},{n:"Bryan",s:20,p:16.6,c:16.6,comm:3.3}],sales:1158.71,win:248,profit:728.07,comm:174.24,pnl:800.28,agentCount:"4 位代理",winNote:"中奖较少",profitNote:"全员盈利",pnlNote:"实际总盈亏"},
-  4:{label:"W4 · Apr 13–19",date:"Apr 13–19, 2026",agents:[{n:"Fei nyien",s:640.4,p:-1114.70,c:-1054.70,comm:93.58},{n:"Hafiz",s:86.5,p:71.75,c:79.12,comm:14.34},{n:"Vincent",s:189.08,p:157.42,c:157.42,comm:30.59},{n:"Bryan",s:3.5,p:2.98,c:72.98,comm:0.49}],sales:919.48,win:1657.5,profit:-882.55,comm:139.00,pnl:-745.18,agentCount:"4 位代理",winNote:"大中奖",profitNote:"本周亏损",pnlNote:"实际总亏损"},
-  5:{label:"W5 · Apr 20–26",date:"Apr 20–26, 2026",agents:[{n:"Fei nyien",s:714.9,p:180.27,c:257.27,comm:91.39},{n:"Hafiz",s:57.4,p:-36.31,c:-30.90,comm:9.41},{n:"Vincent",s:236.1,p:54.29,c:54.29,comm:37.29},{n:"Bryan",s:10,p:8.50,c:55.40,comm:1.40}],sales:1018.40,win:665.5,profit:206.76,comm:139.49,pnl:336.07,agentCount:"4 位代理",winNote:"中奖适中",profitNote:"本周盈利",pnlNote:"实际总盈亏"},
-  0:{label:"全部 5 周合计",date:"Mar 23 – Apr 26, 2026",agents:[{n:"Fei nyien",s:2495.1,p:-232.69,c:-308.59,comm:443.26},{n:"Hafiz",s:359.3,p:183.34,c:213.66,comm:58.5},{n:"Vincent",s:758.29,p:243.35,c:245.53,comm:118.92},{n:"Bryan",s:37,p:31.06,c:217.56,comm:5.68}],sales:3395.69,win:2923,profit:303.09,comm:605.86,pnl:297.31,agentCount:"累计所有代理",winNote:"5周合计",profitNote:"累计盈利",pnlNote:"累计实际盈亏"}
+  1:{label:"W1 · Mar 23–29",date:"Mar 23–29, 2026",agents:[{n:"Fei nyien",s:283.7,p:95.78,c:149.43,comm:42.68},{n:"Hafiz",s:68.6,p:26.18,c:33.13,comm:10.39}],sales:352.3,win:174.5,profit:121.96,comm:53.07,pnl:182.56,ac:"2 位代理",wn:"中奖较少",pn:"本周盈利",dn:"实际总盈亏"},
+  2:{label:"W2 · Mar 30–Apr 05",date:"Mar 30–Apr 05, 2026",agents:[{n:"Fei nyien",s:654.6,p:-392.33,c:-327.63,comm:105.07},{n:"Hafiz",s:82.2,p:68.32,c:74.71,comm:13.44},{n:"Vincent",s:10.5,p:-24.14,c:-23.92,comm:1.55}],sales:747.3,win:971,profit:-348.15,comm:120.06,pnl:-276.84,ac:"3 位代理",wn:"赔率偏高",pn:"本周亏损",dn:"实际总亏损"},
+  3:{label:"W3 · Apr 06–12",date:"Apr 06–12, 2026",agents:[{n:"Fei nyien",s:751.5,p:602.29,c:666.84,comm:110.54},{n:"Hafiz",s:64.6,p:53.41,c:59.11,comm:10.92},{n:"Vincent",s:322.61,p:55.78,c:57.74,comm:49.49},{n:"Bryan",s:20,p:16.6,c:16.6,comm:3.3}],sales:1158.71,win:248,profit:728.07,comm:174.24,pnl:800.28,ac:"4 位代理",wn:"中奖较少",pn:"全员盈利",dn:"实际总盈亏"},
+  4:{label:"W4 · Apr 13–19",date:"Apr 13–19, 2026",agents:[{n:"Fei nyien",s:640.4,p:-1114.70,c:-1054.70,comm:93.58},{n:"Hafiz",s:86.5,p:71.75,c:79.12,comm:14.34},{n:"Vincent",s:189.08,p:157.42,c:157.42,comm:30.59},{n:"Bryan",s:3.5,p:2.98,c:72.98,comm:0.49}],sales:919.48,win:1657.5,profit:-882.55,comm:139.00,pnl:-745.18,ac:"4 位代理",wn:"大中奖",pn:"本周亏损",dn:"实际总亏损"},
+  5:{label:"W5 · Apr 20–26",date:"Apr 20–26, 2026",agents:[{n:"Fei nyien",s:714.9,p:180.27,c:257.27,comm:91.39},{n:"Hafiz",s:57.4,p:-36.31,c:-30.90,comm:9.41},{n:"Vincent",s:236.1,p:54.29,c:54.29,comm:37.29},{n:"Bryan",s:10,p:8.50,c:55.40,comm:1.40}],sales:1018.40,win:665.5,profit:206.76,comm:139.49,pnl:336.07,ac:"4 位代理",wn:"中奖适中",pn:"本周盈利",dn:"实际总盈亏"},
+  6:{label:"W6 · Apr 27–May 03",date:"Apr 27–May 03, 2026",agents:[{n:"Gek",s:1256.20,p:767.70,c:830.02,comm:194.58},{n:"Hafiz",s:76.70,p:64.37,c:70.53,comm:11.77},{n:"Vincent",s:363.68,p:304.24,c:304.24,comm:57.04},{n:"Bryan",s:3.00,p:2.55,c:24.95,comm:0.42}],sales:1699.58,win:286,profit:1138.86,comm:263.81,pnl:1229.74,ac:"4 位代理 (asli01→Gek)",wn:"中奖较少",pn:"本周大盈利",dn:"实际总盈亏"},
+  0:{label:"全部 6 周合计",date:"Mar 23 – May 03, 2026",agents:[{n:"asli01",s:3751.3,p:-395.29,c:-521.43,comm:638.12},{n:"Hafiz",s:435.9,p:247.71,c:284.19,comm:70.27},{n:"Vincent",s:1121.97,p:547.59,c:549.83,comm:175.96},{n:"Bryan",s:40,p:33.61,c:242.51,comm:6.1}],sales:5094.17,win:3209,profit:1441.95,comm:868.67,pnl:1527.05,ac:"累计所有代理",wn:"6周合计",pn:"累计盈利",dn:"累计实际盈亏"}
 };
-const TREND={labels:["W1","W2","W3","W4","W5"],pnl:[182.56,-276.84,800.28,-745.18,336.07],profit:[121.96,-348.15,728.07,-882.55,206.76]};
-const AGENT_PNL={labels:["Fei nyien","Hafiz","Vincent","Bryan"],w1:[149.43,33.13,0,0],w2:[-327.63,74.71,-23.92,0],w3:[666.84,59.11,57.74,16.60],w4:[-1054.70,79.12,157.42,72.98],w5:[257.27,-30.90,54.29,55.40]};
-const SALES={labels:["W1","W2","W3","W4","W5"],data:[352.3,747.3,1158.71,919.48,1018.40]};
+const TREND={labels:["W1","W2","W3","W4","W5","W6"],pnl:[182.56,-276.84,800.28,-745.18,336.07,1229.74],profit:[121.96,-348.15,728.07,-882.55,206.76,1138.86]};
+const AGENT_PNL={labels:["asli01","Hafiz","Vincent","Bryan"],w1:[149.43,33.13,0,0],w2:[-327.63,74.71,-23.92,0],w3:[666.84,59.11,57.74,16.60],w4:[-1054.70,79.12,157.42,72.98],w5:[257.27,-30.90,54.29,55.40],w6:[830.02,70.53,304.24,24.95]};
+const SALES={labels:["W1","W2","W3","W4","W5","W6"],data:[352.3,747.3,1158.71,919.48,1018.40,1699.58]};
 const PIE_C=["#185FA5","#2e7d32","#BA7517","#c62828"];
 const fmt=v=>"RM "+(v<0?"-":"")+Math.abs(v).toLocaleString('en',{minimumFractionDigits:0,maximumFractionDigits:0});
-
 let charts={};
 function destroyAll(){Object.values(charts).forEach(c=>c&&c.destroy());charts={};}
-
 function buildAll(w){
-  destroyAll();
-  const d=W[w];
+  destroyAll(); const d=W[w];
   document.getElementById("k-sales").textContent=fmt(d.sales);
-  document.getElementById("k-sales-d").textContent=d.agentCount;
+  document.getElementById("k-sales-d").textContent=d.ac;
   document.getElementById("k-win").textContent=fmt(d.win);
   document.getElementById("k-win").style.color=d.win>800?"#c62828":"#2e7d32";
-  document.getElementById("k-win-d").textContent=d.winNote;
+  document.getElementById("k-win-d").textContent=d.wn;
   const kp=document.getElementById("k-profit");
   kp.textContent=fmt(d.profit); kp.style.color=d.profit<0?"#c62828":"#2e7d32";
-  document.getElementById("k-profit-d").textContent=d.profitNote;
+  document.getElementById("k-profit-d").textContent=d.pn;
   document.getElementById("k-comm").textContent=fmt(d.comm);
   const kpnl=document.getElementById("k-pnl");
   kpnl.textContent=fmt(d.pnl); kpnl.style.color=d.pnl<0?"#c62828":"#534AB7";
-  document.getElementById("k-pnl-d").textContent=d.pnlNote;
+  document.getElementById("k-pnl-d").textContent=d.dn;
   document.getElementById("sub-sv").textContent=d.label+" 各代理";
   document.getElementById("sub-agents").textContent=d.label+" · "+d.date;
   document.getElementById("sub-pie").textContent=d.label+" 佣金分布";
-  document.getElementById("hdr-sub").textContent="Mar 23 – Apr 26, 2026 · 5 weeks · 当前："+d.label;
+  document.getElementById("hdr-sub").textContent="Mar 23 – May 03, 2026 · 6 weeks · 当前："+d.label;
 
   charts.trend=new Chart(document.getElementById("c-trend"),{type:"line",data:{labels:TREND.labels,datasets:[
     {label:"实际 P&L",data:TREND.pnl,borderColor:"#534AB7",backgroundColor:"rgba(83,74,183,.07)",pointBackgroundColor:TREND.pnl.map(v=>v>=0?"#534AB7":"#c62828"),pointRadius:6,fill:true,tension:.35},
@@ -184,12 +183,13 @@ function buildAll(w){
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)}}},
     scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:11}}},y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>"RM "+v}}}}});
 
-  const sv_labels=w===0?["Fei nyien","Hafiz","Vincent","Bryan"]:d.agents.map(a=>a.n);
-  const sv_sales=w===0?[2495.1,359.3,758.29,37]:d.agents.map(a=>a.s);
-  const sv_win=w===0?[438.5+938+143+1657.5,84+0+31.5+0,143+33+215+0,0]:(w===1?[143,31.5]:w===2?[938,0,33]:w===3?[33,0,215,0]:w===4?[1657.5,0,0,0]:[438.5,84,143,0]);
-  charts.sv=new Chart(document.getElementById("c-sv"),{type:"bar",data:{labels:sv_labels,datasets:[
-    {label:"销售",data:sv_sales,backgroundColor:"#185FA5",borderRadius:5,barPercentage:.6},
-    {label:"中奖",data:sv_win,backgroundColor:"#c62828",borderRadius:5,barPercentage:.6}
+  const sv_l=w===0?["asli01","Hafiz","Vincent","Bryan"]:d.agents.map(a=>a.n);
+  const sv_s=w===0?[3751.3,435.9,1121.97,40]:d.agents.map(a=>a.s);
+  const sv_w=w===0?[438.5+938+143+1657.5+286,84+0+31.5+0+0,143+33+215+0+0,0]:
+    (w===1?[143,31.5]:w===2?[938,0,33]:w===3?[33,0,215,0]:w===4?[1657.5,0,0,0]:w===5?[438.5,84,143,0]:[286,0,0,0]);
+  charts.sv=new Chart(document.getElementById("c-sv"),{type:"bar",data:{labels:sv_l,datasets:[
+    {label:"销售",data:sv_s,backgroundColor:"#185FA5",borderRadius:5,barPercentage:.6},
+    {label:"中奖",data:sv_w,backgroundColor:"#c62828",borderRadius:5,barPercentage:.6}
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>"RM "+c.raw.toFixed(0)}}},
     scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:10}}},y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>"RM "+v}}}}});
 
@@ -205,17 +205,18 @@ function buildAll(w){
     <td style="text-align:right"><span class="pill ${d.profit>=0?'pill-g':'pill-r'}">${d.profit>=0?'+':''}${d.profit.toFixed(0)}</span></td>
     <td style="text-align:right;color:${d.pnl>=0?"#2e7d32":"#c62828"}">RM ${d.pnl>=0?'':'-'}${Math.abs(d.pnl).toFixed(0)}</td><td></td></tr>`;
 
-  const comms=d.agents.map(a=>a.comm), pie_labels=d.agents.map(a=>a.n), total=comms.reduce((a,b)=>a+b,0);
-  charts.pie=new Chart(document.getElementById("c-pie"),{type:"doughnut",data:{labels:pie_labels,datasets:[{data:comms,backgroundColor:PIE_C,borderWidth:3,borderColor:"#fff"}]},
+  const comms=d.agents.map(a=>a.comm),pie_l=d.agents.map(a=>a.n),total=comms.reduce((a,b)=>a+b,0);
+  charts.pie=new Chart(document.getElementById("c-pie"),{type:"doughnut",data:{labels:pie_l,datasets:[{data:comms,backgroundColor:PIE_C,borderWidth:3,borderColor:"#fff"}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:"60%",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: RM ${c.raw.toFixed(2)} (${(c.raw/total*100).toFixed(0)}%)`}}}}});
-  document.getElementById("pie-leg").innerHTML=pie_labels.map((l,i)=>`<span class="ld"><span class="ls" style="background:${PIE_C[i]}"></span>${l} ${(comms[i]/total*100).toFixed(0)}%</span>`).join("");
+  document.getElementById("pie-leg").innerHTML=pie_l.map((l,i)=>`<span class="ld"><span class="ls" style="background:${PIE_C[i]}"></span>${l} ${(comms[i]/total*100).toFixed(0)}%</span>`).join("");
 
   charts.agentPnl=new Chart(document.getElementById("c-agent-pnl"),{type:"bar",data:{labels:AGENT_PNL.labels,datasets:[
-    {label:"W1",data:AGENT_PNL.w1,backgroundColor:"#2e7d32",borderRadius:4,barPercentage:.7},
-    {label:"W2",data:AGENT_PNL.w2,backgroundColor:"#185FA5",borderRadius:4,barPercentage:.7},
-    {label:"W3",data:AGENT_PNL.w3,backgroundColor:"#c62828",borderRadius:4,barPercentage:.7},
-    {label:"W4",data:AGENT_PNL.w4,backgroundColor:"#534AB7",borderRadius:4,barPercentage:.7},
-    {label:"W5",data:AGENT_PNL.w5,backgroundColor:"#0F6E56",borderRadius:4,barPercentage:.7},
+    {label:"W1",data:AGENT_PNL.w1,backgroundColor:"#2e7d32",borderRadius:3,barPercentage:.75},
+    {label:"W2",data:AGENT_PNL.w2,backgroundColor:"#185FA5",borderRadius:3,barPercentage:.75},
+    {label:"W3",data:AGENT_PNL.w3,backgroundColor:"#c62828",borderRadius:3,barPercentage:.75},
+    {label:"W4",data:AGENT_PNL.w4,backgroundColor:"#534AB7",borderRadius:3,barPercentage:.75},
+    {label:"W5",data:AGENT_PNL.w5,backgroundColor:"#0F6E56",borderRadius:3,barPercentage:.75},
+    {label:"W6",data:AGENT_PNL.w6,backgroundColor:"#BA7517",borderRadius:3,barPercentage:.75},
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.raw)}}},
     scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:11}}},y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>(v<0?"-RM":"RM ")+Math.abs(v)}}}}});
 
@@ -224,9 +225,8 @@ function buildAll(w){
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>"RM "+c.raw.toFixed(0)}}},
       scales:{x:{grid:{display:false},ticks:{color:"#aaa",font:{size:12}}},y:{grid:{color:"rgba(0,0,0,.05)"},ticks:{color:"#aaa",font:{size:10},callback:v=>"RM "+v}}}}});
 }
-
 function setW(w,el){document.querySelectorAll(".wtab").forEach(b=>b.classList.remove("on"));el.classList.add("on");buildAll(w);}
-buildAll(5);
+buildAll(6);
 </script>
 </body>
 </html>
